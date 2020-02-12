@@ -1,0 +1,67 @@
+import datetime
+country=["UK","USA","INDIA","MEXICO","AUSTRALIA"]
+time_zone=["GMT","EST","IST","CST","AEDT"]
+time=["GMT-5.5","EST-10.5","IST+0.0","CST-11.5","AEDT+5.5"]
+currency=["Pound","USD","INR","USD","AUD"]
+language=["English","Engish","Hindi","Spanish","English"]
+currency_rate=["92.72","71.32","1","71.32","47.73"]
+h = []
+m = []
+A = []
+
+def CountryLanguageCurrency(coun):
+    #print(index)
+    print("Country : ",country[index])
+    for k,v in countryLang.items():
+        if k==coun:
+            print("Language :", v)
+    print("Currency Value :",currency_rate[index],time_zone[index])
+def time_diff():
+    for i in range(len(time_zone)):
+        a = time[i].replace(time_zone[i],"")
+        A.append(a)
+def get_hour_min(A):
+    for j in A:
+        ho = j.split(".")[0]
+        h.append(ho)
+        mi = j.split(".")[1]
+        m.append(mi)
+       
+
+def cal_time(hr,mn):
+    hour = int(hr[index]) + int(current_h)
+    #print(hour)
+    minute = (int(mn[index]) *6 )+int(current_m)
+    #print(minute)
+   
+    print("Current Time : ", hour,".",minute,time_zone[index])
+def check_currency(cc):
+    rate = float(currency_rate[index])
+    amount = float(cc/rate)
+    print("Equivalent currency value for ",cc,"INR : ", amount )
+   
+
+for c ,tz,t,cur,l,cr in zip(country,time_zone,time,currency,language,currency_rate):
+    print(c,tz,t,cur,l,cr)
+countryLang = {}
+for v in range(len(country)):
+    countryLang[country[v]] = language[v]
+print(countryLang)
+
+time_diff()
+get_hour_min(A)
+# print(A)
+# print(h)
+# print(m)
+D = datetime.datetime.now()
+# print(D)
+current_h = D.strftime("%H")
+# print(current_h)
+current_m = D.strftime("%M")
+# print(current_m)
+coun = input("Enter the country name from (UK,USA,Mexico,Asustralia) : ")
+amoun = int(input("enter the amount in INR :"))
+index = country.index(coun)
+CountryLanguageCurrency(coun)
+cal_time(h,m)
+check_currency(amoun)

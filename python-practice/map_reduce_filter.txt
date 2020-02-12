@@ -1,0 +1,55 @@
+MAP,FILTER,REDUCE
+
+1)does same variable name in lambda expression work?
+
+code:
+
+x=[1,2,3,4,5,6,7]
+x=list(map(lambda x:x*x,x))
+print(x)
+
+o/p:[1, 4, 9, 16, 25, 36, 49]
+
+2)What will be the output for unequal lists in map function?
+
+code:
+def add(a,b):
+    return a+b
+    
+l1=[1,2,3,4,5,6]
+l2=[1,1,2,2]
+x=list(map(add,l1,l2))
+print(x)
+
+o/p:
+[2, 3, 5, 6]
+ 
+
+3)What will happen for unequal lists output in map function when print statement is given in the function?
+
+code:
+def add(a,b):
+    print(a+b)
+    
+l1=[1,2,3,4,5,6]
+l2=[1,1,2,2]
+x=list(map(add,l1,l2))
+print(x)
+
+o/p:
+2                                                                                                                             
+3                                                                                                                             
+5                                                                                                                             
+6                                                                                                                             
+[None, None, None, None] 
+
+
+
+4)how does map work with dictionary?
+
+
+5)map with if conditon and isinstance(return values and not boolean)?
+
+6)factorial using reduce function?
+
+7)factorial using accumulators?

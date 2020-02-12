@@ -1,0 +1,182 @@
+#1
+mysql> select * from hotel h join room r join booking b join guest g on h.hotel_no = r.hotel_no and h.hotel_no = b.hotel_no and b.guest_no =g.guest_no;
++----------+-----------------+----------+---------+----------+------+-------+----------+----------+-----------+-----------+---------+----------+---------------+--------------+
+| hotel_no | name            | city     | room_no | hotel_no | type | price | hotel_no | guest_no | date_from | date_to   | room_no | guest_no | name          | city         |
++----------+-----------------+----------+---------+----------+------+-------+----------+----------+-----------+-----------+---------+----------+---------------+--------------+
+| H111     | EMPIRE HOTEL    | NEW YORK |     313 | H111     | S    |   145 | H111     | G256     | 10-AUG-99 | 15-AUG-99 |     412 | G256     | Adam Wayne    | Pittsburgh   |
+| H111     | EMPIRE HOTEL    | NEW YORK |     313 | H111     | S    |   145 | H111     | G367     | 18-AUG-99 | 21-AUG-99 |     412 | G367     | Tata Cumming  | Baltimore    |
+| H111     | EMPIRE HOTEL    | NEW YORK |     412 | H111     | N    |   145 | H111     | G256     | 10-AUG-99 | 15-AUG-99 |     412 | G256     | Adam Wayne    | Pittsburgh   |
+| H111     | EMPIRE HOTEL    | NEW YORK |     412 | H111     | N    |   145 | H111     | G367     | 18-AUG-99 | 21-AUG-99 |     412 | G367     | Tata Cumming  | Baltimore    |
+| H235     | PARK PALACE     | NEW YORK |    1267 | H235     | N    |   175 | H235     | G879     | 05-SEP-99 | 12-SEP-99 |    1267 | G879     | Vanessa Parry | Pittsburgh   |
+| H235     | PARK PALACE     | NEW YORK |    1289 | H235     | N    |   195 | H235     | G879     | 05-SEP-99 | 12-SEP-99 |    1267 | G879     | Vanessa Parry | Pittsburgh   |
+| H498     | JAMES PLAZA     | TORONTO  |     345 | H498     | N    |   160 | H498     | G230     | 15-SEP-99 | 18-SEP-99 |     467 | G230     | Tom Hancock   | Philadelphia |
+| H498     | JAMES PLAZA     | TORONTO  |     345 | H498     | N    |   160 | H498     | G256     | 30-NOV-99 | 02-DEC-99 |     345 | G256     | Adam Wayne    | Pittsburgh   |
+| H498     | JAMES PLAZA     | TORONTO  |     345 | H498     | N    |   160 | H498     | G467     | 03-NOV-99 | 05-NOV-99 |     345 | G467     | Robert Swift  | Atlanta      |
+| H498     | JAMES PLAZA     | TORONTO  |     467 | H498     | N    |   180 | H498     | G230     | 15-SEP-99 | 18-SEP-99 |     467 | G230     | Tom Hancock   | Philadelphia |
+| H498     | JAMES PLAZA     | TORONTO  |     467 | H498     | N    |   180 | H498     | G256     | 30-NOV-99 | 02-DEC-99 |     345 | G256     | Adam Wayne    | Pittsburgh   |
+| H498     | JAMES PLAZA     | TORONTO  |     467 | H498     | N    |   180 | H498     | G467     | 03-NOV-99 | 05-NOV-99 |     345 | G467     | Robert Swift  | Atlanta      |
+| H193     | DEVON HOTEL     | BOSTON   |    1001 | H193     | S    |   150 | H193     | G190     | 15-NOV-99 | 19-NOV-99 |    1001 | G190     | Edward Cane   | Baltimore    |
+| H193     | DEVON HOTEL     | BOSTON   |    1001 | H193     | S    |   150 | H193     | G367     | 12-SEP-99 | 14-SEP-99 |    1001 | G367     | Tata Cumming  | Baltimore    |
+| H193     | DEVON HOTEL     | BOSTON   |    1001 | H193     | S    |   150 | H193     | G367     | 01-OCT-99 | 06-OCT-99 |    1201 | G367     | Tata Cumming  | Baltimore    |
+| H193     | DEVON HOTEL     | BOSTON   |    1201 | H193     | N    |   175 | H193     | G190     | 15-NOV-99 | 19-NOV-99 |    1001 | G190     | Edward Cane   | Baltimore    |
+| H193     | DEVON HOTEL     | BOSTON   |    1201 | H193     | N    |   175 | H193     | G367     | 12-SEP-99 | 14-SEP-99 |    1001 | G367     | Tata Cumming  | Baltimore    |
+| H193     | DEVON HOTEL     | BOSTON   |    1201 | H193     | N    |   175 | H193     | G367     | 01-OCT-99 | 06-OCT-99 |    1201 | G367     | Tata Cumming  | Baltimore    |
+| H437     | CLAIRMONT HOTEL | BOSTON   |     257 | H437     | N    |   140 | H437     | G190     | 04-OCT-99 | 06-OCT-99 |     223 | G190     | Edward Cane   | Baltimore    |
+| H437     | CLAIRMONT HOTEL | BOSTON   |     257 | H437     | N    |   140 | H437     | G879     | 14-SEP-99 | 17-SEP-99 |     223 | G879     | Vanessa Parry | Pittsburgh   |
+| H437     | CLAIRMONT HOTEL | BOSTON   |     223 | H437     | N    |   155 | H437     | G190     | 04-OCT-99 | 06-OCT-99 |     223 | G190     | Edward Cane   | Baltimore    |
+| H437     | CLAIRMONT HOTEL | BOSTON   |     223 | H437     | N    |   155 | H437     | G879     | 14-SEP-99 | 17-SEP-99 |     223 | G879     | Vanessa Parry | Pittsburgh   |
++----------+-----------------+----------+---------+----------+------+-------+----------+----------+-----------+-----------+---------+----------+---------------+--------------+
+22 rows in set (0.00 sec)
+
+#2
+mysql> select * from hotel h join room r join booking b join guest g on h.hotel_no=r.hotel_no and h.hotel_no=b.hotel_no and b.guest_no=g.guest_no where h.city="New York";
++----------+--------------+----------+---------+----------+------+-------+----------+----------+-----------+-----------+---------+----------+---------------+------------+
+| hotel_no | name         | city     | room_no | hotel_no | type | price | hotel_no | guest_no | date_from | date_to   | room_no | guest_no | name          | city       |
++----------+--------------+----------+---------+----------+------+-------+----------+----------+-----------+-----------+---------+----------+---------------+------------+
+| H111     | EMPIRE HOTEL | NEW YORK |     313 | H111     | S    |   145 | H111     | G256     | 10-AUG-99 | 15-AUG-99 |     412 | G256     | Adam Wayne    | Pittsburgh |
+| H111     | EMPIRE HOTEL | NEW YORK |     313 | H111     | S    |   145 | H111     | G367     | 18-AUG-99 | 21-AUG-99 |     412 | G367     | Tata Cumming  | Baltimore  |
+| H111     | EMPIRE HOTEL | NEW YORK |     412 | H111     | N    |   145 | H111     | G256     | 10-AUG-99 | 15-AUG-99 |     412 | G256     | Adam Wayne    | Pittsburgh |
+| H111     | EMPIRE HOTEL | NEW YORK |     412 | H111     | N    |   145 | H111     | G367     | 18-AUG-99 | 21-AUG-99 |     412 | G367     | Tata Cumming  | Baltimore  |
+| H235     | PARK PALACE  | NEW YORK |    1267 | H235     | N    |   175 | H235     | G879     | 05-SEP-99 | 12-SEP-99 |    1267 | G879     | Vanessa Parry | Pittsburgh |
+| H235     | PARK PALACE  | NEW YORK |    1289 | H235     | N    |   195 | H235     | G879     | 05-SEP-99 | 12-SEP-99 |    1267 | G879     | Vanessa Parry | Pittsburgh |
++----------+--------------+----------+---------+----------+------+-------+----------+----------+-----------+-----------+---------+----------+---------------+------------+
+6 rows in set (0.06 sec)
+
+#3
+mysql>  select name,city from guest order by city;
++---------------+--------------+
+| name          | city         |
++---------------+--------------+
+| Robert Swift  | Atlanta      |
+| Tata Cumming  | Baltimore    |
+| Edward Cane   | Baltimore    |
+| Tom Hancock   | Philadelphia |
+| Adam Wayne    | Pittsburgh   |
+| Vanessa Parry | Pittsburgh   |
++---------------+--------------+
+6 rows in set (0.01 sec)
+
+#4
+mysql> select * from room where type = "N" order by price;
++---------+----------+------+-------+
+| room_no | hotel_no | type | price |
++---------+----------+------+-------+
+|     257 | H437     | N    |   140 |
+|     412 | H111     | N    |   145 |
+|     223 | H437     | N    |   155 |
+|     345 | H498     | N    |   160 |
+|    1267 | H235     | N    |   175 |
+|    1201 | H193     | N    |   175 |
+|     467 | H498     | N    |   180 |
+|    1289 | H235     | N    |   195 |
++---------+----------+------+-------+
+8 rows in set (0.00 sec)
+
+#5
+mysql> select count(hotel_no) from hotel;
++-----------------+
+| count(hotel_no) |
++-----------------+
+|               6 |
++-----------------+
+1 row in set (0.11 sec)
+
+#6
+mysql> select distinct city from guest;
++--------------+
+| city         |
++--------------+
+| Pittsburgh   |
+| Baltimore    |
+| Philadelphia |
+| Atlanta      |
++--------------+
+4 rows in set (0.00 sec)
+
+#7
+mysql> select avg(price) from room;
++------------+
+| avg(price) |
++------------+
+|   155.6667 |
++------------+
+1 row in set (0.03 sec)
+
+#8
+mysql> select h.name ,r.room_no,r.type from hotel h join room r on h.hotel_no=r.hotel_no;
++------------------+---------+------+
+| name             | room_no | type |
++------------------+---------+------+
+| EMPIRE HOTEL     |     313 | S    |
+| EMPIRE HOTEL     |     412 | N    |
+| PARK PALACE      |    1267 | N    |
+| PARK PALACE      |    1289 | N    |
+| BROWNSTONE HOTEL |     876 | S    |
+| BROWNSTONE HOTEL |     898 | S    |
+| JAMES PLAZA      |     345 | N    |
+| JAMES PLAZA      |     467 | N    |
+| DEVON HOTEL      |    1001 | S    |
+| DEVON HOTEL      |    1201 | N    |
+| CLAIRMONT HOTEL  |     257 | N    |
+| CLAIRMONT HOTEL  |     223 | N    |
++------------------+---------+------+
+12 rows in set (0.00 sec)
+
+
+#9
+mysql> select h.name ,b.date_from,b.date_to,b.room_no from hotel h join booking b on h.hotel_no = b.hotel_no where h.city = "New York";
++--------------+-----------+-----------+---------+
+| name         | date_from | date_to   | room_no |
++--------------+-----------+-----------+---------+
+| EMPIRE HOTEL | 10-AUG-99 | 15-AUG-99 |     412 |
+| EMPIRE HOTEL | 18-AUG-99 | 21-AUG-99 |     412 |
+| PARK PALACE  | 05-SEP-99 | 12-SEP-99 |    1267 |
++--------------+-----------+-----------+---------+
+3 rows in set (0.00 sec)
+
+
+#12 
+mysql> select h.name,r.room_no from hotel h join room r on h.hotel_no=r.hotel_no where r.room_no not in (select room_no from booking);
++------------------+---------+
+| name             | room_no |
++------------------+---------+
+| EMPIRE HOTEL     |     313 |
+| PARK PALACE      |    1289 |
+| BROWNSTONE HOTEL |     876 |
+| BROWNSTONE HOTEL |     898 |
+| CLAIRMONT HOTEL  |     257 |
++------------------+---------+
+5 rows in set (0.27 sec)
+
+
+#13
+mysql> select h.name , h.city ,price from hotel h join room r on h.hotel_no=r.hotel_no order by price desc limit 1;
++-------------+----------+-------+
+| name        | city     | price |
++-------------+----------+-------+
+| PARK PALACE | NEW YORK |   195 |
++-------------+----------+-------+
+1 row in set (0.01 sec)
+
+mysql>
+
+#14
+mysql> select name,room_no,city,price from hotel h join room r on r.hotel_no=h.hotel_no where price <(select min(price) from room r join hotel h on h.hotel_no = r.hotel_no where city = "Boston");
++------------------+---------+---------+-------+
+| name             | room_no | city    | price |
++------------------+---------+---------+-------+
+| BROWNSTONE HOTEL |     876 | TORONTO |   124 |
+| BROWNSTONE HOTEL |     898 | TORONTO |   124 |
++------------------+---------+---------+-------+
+2 rows in set (0.00 sec)
+
+#15
+mysql> select avg(price) ,name,city from room r join hotel h on h.hotel_no=r.hotel_no group by city;
++------------+------------------+----------+
+| avg(price) | name             | city     |
++------------+------------------+----------+
+|   165.0000 | EMPIRE HOTEL     | NEW YORK |
+|   147.0000 | BROWNSTONE HOTEL | TORONTO  |
+|   155.0000 | DEVON HOTEL      | BOSTON   |
++------------+------------------+----------+
+3 rows in set (0.01 sec)

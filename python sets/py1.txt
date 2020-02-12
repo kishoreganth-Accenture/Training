@@ -1,0 +1,150 @@
+#1
+x = int(input("first"))
+y = int(input("second"))
+z = int(input("third"))
+
+if x%2==0 and y%2==0 and z%2==0:
+    print("all are even")
+else:
+    if x>z and x>y: print("x is greater")
+    elif y>z and y>x: print("y is greater")
+    else: print("z is greater")
+
+#2
+def right_justify(s):
+   print(s.rjust(70," "))
+
+a = "cigna"
+right_justify(a)
+
+
+#3
+l =[]
+for i in range(0,10):
+    x= int(input("enter :"))
+    l.append(x)
+print(len(l))	
+
+odd= []
+even = [] 
+for y in range(len(l)):
+    if y%2==0:
+        even.append(y)
+    else: 
+        odd.append(y)
+        
+if len(odd)== 0:
+    print("enter atleast one odd number")
+else:
+    odd.sort(reverse = True)
+    print("greatest odd number is " ,odd[0])
+
+#4 a 
+import math
+r= 5
+area = 4/3 * math.pi * r * r * r
+print(area)
+
+#4 b
+n = int(input("enter the number of copies : "))
+book = 24.5 * 0.60 * n
+ship = (n-1)*0.75 + 3
+
+#4c
+shour = 6 + 52 / 60.0
+ehour = (8 + 15 / 60.0 ) / 60.0
+thour = (7 + 12 / 60.0) / 60.0
+rhour = 2 * ehour + 3 * thour
+totalhour = shour + rhour
+totalmin = (totalhour-int(totalhour))*60
+
+print ('breakfast_hr', int(totalhour) )
+print ('breakfast_min', int (totalmin) )
+
+
+total = book + ship
+print(total)
+
+#5
+integer = 16
+
+for power in range(1,6):
+    a = (integer ** (1.0/power))
+    if(round(a)==a):
+        print(a, power)
+
+#6 
+
+s = '1.23,2.4,3.123'
+sp = s.split(",")
+print(sp)
+sum = 0
+for i in sp:
+    sum += float(i)
+print(sum)
+
+
+# 7 
+def isIn(aa,bb):
+    if aa in bb or bb in aa:
+        return True
+    else:
+        return False
+
+a = "kishore"
+b = "kishore ganth"
+print(isIn(a,b))
+
+
+
+# 8
+v = []
+def getRatios(vect1, vect2):
+    if len(vect1) == len(vect2):
+        
+        for i in range(len(vect1)):
+            val = vect1[i]/vect2[i]
+            v.append(val)
+    else:
+        print("the lengths are not same ")
+        
+    return v
+
+try:
+    # TODO: write code...''
+    x = [12,4,6,8]
+    y = [6,2,3,4]
+    print(getRatios(x,y))
+except:
+    print("error")
+
+#9
+width = 17 
+height = 12.0
+delimiter = '.'
+print(width/2)
+print(type(width/2))
+print(width/2.0)
+print(type(width/2.0))
+print(height/3)
+print(type(height/3))
+print(1 + 2 * 5)
+print(delimiter * 5)
+
+#10 
+x = -25
+epsilon = 0.01
+numGuesses = 0
+low = 0.0
+high = max(1.0, x)
+ans = (high + low)/2.0
+while abs(ans**2 - x) >= epsilon:
+    print('low =', low, 'high =', high, 'ans =', ans)
+    numGuesses += 1
+    if ans**2 < x:
+        low = ans
+    else:
+        high = ans
+        ans = (high + low)/2.0
+        print('numGuesses =', numGuesses)
+        print(ans, 'is close to square root of', x)

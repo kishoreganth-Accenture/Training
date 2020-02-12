@@ -1,0 +1,74 @@
+class Company:
+    def __init(self):
+        pass
+    def printc(self):
+        print(self.name + " it is from parent class ")
+     
+class Employee(Company):
+    _count = 0
+    @classmethod
+    def viewCounter(cls):
+        return cls._count
+   
+    def __new__(cls,*args,**kwargs):
+        cls._count+=1
+        if cls._count>5:
+            print(cls._count, " is the count it called the object")
+            raise TypeError ("cant make more than five objects")
+        else:
+            return object.__new__(cls)
+    def __init__(self, name):
+        self.name = name
+    def display(self):
+        return self.name
+
+
+a1 = Employee("kishore")
+print(Employee.viewCounter())
+a2 = Employee("gova")
+print(Employee.viewCounter())
+a3 = Employee("Simma")
+print(Employee.viewCounter())
+a4 = Employee("aravinth")
+print(Employee.viewCounter())
+print(a3.display())
+a3.printc()
+a5 = Employee("ajay")
+print(Employee.viewCounter())
+a6 = Employee("Rajini")
+
+
+
+This is the point program 
+import math
+
+class point:
+    count =0
+    def __new__(cls,*args,**kwargs):
+        cls.count +-1
+        return object.__new__(cls)
+   
+    def __init__(self,a=0,b=0):
+        self.a = a
+        self.b = b
+       
+    def orginD(self):
+        d = math.sqrt(self.a**2 + self.b**2)
+        return d
+   
+    def distance(self,p):
+        d= math.sqrt((p.a-self.a)**2 + (p.b-self.b)**2)
+        return d
+       
+    def midpoint(self,p1,p2):
+        self.a = (p1.a+p2.a)/2
+        self.b = (p1.b+p2.b)/2
+        return self
+       
+p1 = point(4,5)
+p2 = point(7,9)
+print(p1.orginD())
+print(p1.distance(p2))
+p3=point()
+print(p3.midpoint(p1,p2))
+print(p3.a,p3.b)
