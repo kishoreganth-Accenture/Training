@@ -1,0 +1,108 @@
+#1
+mysql> select name , plantid ,sum(pk.weight) from plant p join picked pk on p.plantid = pk.plantFK where name = "corn";
++------+---------+----------------+
+| name | plantid | sum(pk.weight) |
++------+---------+----------------+
+| Corn |       2 |          17.54 |
++------+---------+----------------+
+1 row in set (0.04 sec)
+
+#2
+mysql> update picked set locationFK = (select locationid from location where name = "North") where plantFK = (select gardenerid from gardener where name = "Erin") and plantFK = (select plantid from plant where name = "Tomato");
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from picked;
++---------+------------+------------+------------+--------+--------+
+| plantFK | gardenerFK | locationFK | date1      | amount | weight |
++---------+------------+------------+------------+--------+--------+
+|       0 |          2 |          0 | 2012-08-18 |     28 |   2.32 |
+|       0 |          3 |          1 | 2012-08-16 |     12 |   1.02 |
+|       2 |          1 |          3 | 2012-08-22 |     52 |  12.96 |
+|       2 |          2 |          2 | 2012-08-28 |     18 |   4.58 |
+|       3 |          3 |          1 | 2012-08-22 |     15 |   3.84 |
+|       4 |          2 |          0 | 2012-07-16 |     23 |   0.52 |
++---------+------------+------------+------------+--------+--------+
+6 rows in set (0.00 sec)
+
+#3
+mysql> alter table gardener add column exper int(30);
+Query OK, 0 rows affected (1.48 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table gardener modify column exper varchar(30);
+Query OK, 4 rows affected (2.70 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> desc gardener;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| gardenerid | int(11)     | NO   | PRI | NULL    |       |
+| name       | varchar(30) | YES  |     | NULL    |       |
+| age        | int(11)     | YES  |     | NULL    |       |
+| exper      | varchar(30) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+#4
+
+mysql> select name, plantid from plant p join planted pl on p.plantid = pl.plantFK where seeds < 20 and date1 = '2012-04-14';
++--------+---------+
+| name   | plantid |
++--------+---------+
+| Carrot |       0 |
++--------+---------+
+1 row in set (0.09 sec)
+
+#5
+mysql> select name ,sunlight,water from plant where name LIKE "c%" or name LIKE "r%";
++--------+----------+-------+
+| name   | sunlight | water |
++--------+----------+-------+
+| Carrot |     0.26 |  0.82 |
+| Corn   |     0.44 |  0.76 |
+| Radish |     0.28 |  0.84 |
++--------+----------+-------+
+3 rows in set (0.00 sec)
+
+#6
+mysql> select p.name,pl.plantFK ,sum(seeds) from plant p join planted pl on p.plantid = pl.plantFK group by plantFK order by name desc;
++---------+---------+------------+
+| name    | plantFK | sum(seeds) |
++---------+---------+------------+
+| Tomato  |       3 |         38 |
+| Radish  |       4 |         30 |
+| Lettuce |       5 |         30 |
+| Corn    |       2 |         32 |
+| Carrot  |       0 |         42 |
+| Beet    |       1 |         36 |
++---------+---------+------------+
+6 rows in set (0.00 sec)
+
+
+#7
+mysql>  select name ,pl.plantFK,sum(amount)/sum(seeds) as average_no_of_items from plant p join planted pl on
+    -> p.plantid = pl.plantFK join picked pi
+    ->  on p.plantid = pi.plantFk group by plantid;
++--------+---------+---------------------+
+| name   | plantFK | average_no_of_items |
++--------+---------+---------------------+
+| Carrot |       0 |              0.9524 |
+| Corn   |       2 |              2.1875 |
+| Tomato |       3 |              0.3947 |
+| Radish |       4 |              0.7667 |
++--------+---------+---------------------+
+4 rows in set (0.00 sec)
+
+#8
+mysql> select p.name,g.name ,pi.date1,amount from plant p join picked pi on
+    -> p.plantid = pi.plantFK join gardener g on
+    -> pi.gardenerFK = g.gardenerid where locationFK =0;
++--------+------+------------+--------+
+| name   | name | date1      | amount |
++--------+------+------------+--------+
+| Carrot | Tim  | 2012-08-18 |     28 |
+| Radish | Tim  | 2012-08-16 |     23 |
++--------+------+------------+--------+
+2 rows in set (0.00 sec)
